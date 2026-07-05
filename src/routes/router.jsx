@@ -7,7 +7,10 @@ import Home from '@/pages/Home'
 // page is lazy-loaded so a first visit only downloads the code it needs, which
 // keeps the initial bundle small. Adding a page later = one import + one route.
 const About = lazy(() => import('@/pages/About'))
-const Packages = lazy(() => import('@/pages/Packages'))
+const PackagesLanding = lazy(() => import('@/pages/packages/PackagesLanding'))
+const PackageCollection = lazy(() => import('@/pages/packages/PackageCollection'))
+const CustomPackages = lazy(() => import('@/pages/packages/CustomPackages'))
+const PackageDetails = lazy(() => import('@/pages/packages/PackageDetails'))
 const Adventures = lazy(() => import('@/pages/Adventures'))
 const Destinations = lazy(() => import('@/pages/Destinations'))
 const Gallery = lazy(() => import('@/pages/Gallery'))
@@ -40,7 +43,13 @@ export const router = createBrowserRouter(
       children: [
         { index: true, element: <Home /> },
         { path: 'about', element: withSuspense(About) },
-        { path: 'packages', element: withSuspense(Packages) },
+        // Packages section. Static routes (index, custom) are matched before the
+        // dynamic :category, and :category before :category/:slug — React Router
+        // ranks these correctly, so the order here is just for readability.
+        { path: 'packages', element: withSuspense(PackagesLanding) },
+        { path: 'packages/custom', element: withSuspense(CustomPackages) },
+        { path: 'packages/:category', element: withSuspense(PackageCollection) },
+        { path: 'packages/:category/:slug', element: withSuspense(PackageDetails) },
         { path: 'adventures', element: withSuspense(Adventures) },
         { path: 'destinations', element: withSuspense(Destinations) },
         { path: 'gallery', element: withSuspense(Gallery) },
