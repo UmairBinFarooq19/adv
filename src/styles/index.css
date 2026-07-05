@@ -10,7 +10,7 @@
     --color-background: 245 248 246; /* snow  */
     --color-surface: 255 255 255;    /* cards */
     --color-body: 12 26 21;          /* ink   */
-    --color-muted: 91 110 102;       /* muted text */
+    --color-muted: 74 92 84;         /* muted text — AA (≥4.5:1) on white */
     --color-line: 223 231 227;       /* hairline borders */
   }
 
@@ -20,6 +20,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem; /* so #anchor targets clear the sticky nav */
     -webkit-text-size-adjust: 100%;
   }
 
@@ -32,6 +33,12 @@
   h1, h2, h3, h4 {
     @apply font-display text-pine-900;
     text-wrap: balance;
+    font-optical-sizing: auto;
+  }
+
+  /* Premium brand selection colour. */
+  ::selection {
+    background: rgb(232 163 61 / 0.28);
   }
 
   /* Keyboard focus is always visible — accessibility quality floor. */

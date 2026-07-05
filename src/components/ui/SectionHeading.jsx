@@ -13,8 +13,8 @@ export default function SectionHeading({ eyebrow, title, lead, align = 'left', c
       className={cn('max-w-2xl', align === 'center' && 'mx-auto text-center', className)}
     >
       {eyebrow && <Eyebrow className={align === 'center' ? 'justify-center' : ''}>{eyebrow}</Eyebrow>}
-      <h2 className="mt-4 text-display-sm font-semibold">{title}</h2>
-      {lead && <p className="mt-4 text-lg leading-relaxed text-muted">{lead}</p>}
+      <h2 className="mt-4 text-display-sm font-semibold tracking-tight">{title}</h2>
+      {lead && <p className="mt-4 text-pretty text-lg leading-relaxed text-muted">{lead}</p>}
     </motion.div>
   )
 }

@@ -29,16 +29,23 @@ export default function Hero() {
             src={heroSlides[index].image}
             alt=""
             aria-hidden="true"
-            initial={{ opacity: 0, scale: 1.08 }}
+            draggable={false}
+            fetchPriority="high"
+            initial={{ opacity: 0, scale: 1.06 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ opacity: { duration: 1.2 }, scale: { duration: 7, ease: 'linear' } }}
+            transition={{ opacity: { duration: 1.4, ease: 'easeInOut' }, scale: { duration: 8, ease: 'linear' } }}
             className="absolute inset-0 h-full w-full object-cover"
           />
         </AnimatePresence>
         {/* Dark gradient overlay for legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-pine-950 via-pine-950/70 to-pine-950/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-pine-950/80 to-transparent" />
+        {/* Soft vignette adds depth and keeps focus on the headline */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(120% 80% at 30% 40%, transparent 40%, rgb(8 23 18 / 0.45) 100%)' }}
+        />
       </div>
 
       <Container className="relative py-32">
@@ -57,7 +64,7 @@ export default function Hero() {
             <span className="text-saffron-300">unhurried.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-xl text-lg leading-relaxed text-pine-100">
+          <motion.p variants={fadeUp} className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-pine-100">
             Handcrafted ski, snow and adventure journeys across Kashmir — guided
             by locals, staged in heritage lodges, paced for people who travel well.
           </motion.p>

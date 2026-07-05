@@ -13,7 +13,8 @@ import { cn } from '@/lib/cn'
 const base =
   'inline-flex items-center justify-center gap-2 font-semibold rounded-full ' +
   'transition-all duration-300 ease-premium focus-visible:outline-none ' +
-  'disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap'
+  'active:translate-y-0 active:scale-[0.98] ' +
+  'disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap select-none'
 
 const variants = {
   primary:
@@ -21,10 +22,10 @@ const variants = {
   solid:
     'bg-pine-800 text-white hover:bg-pine-700 shadow-soft hover:shadow-lift hover:-translate-y-0.5',
   outline:
-    'border border-pine-800/25 text-pine-900 hover:border-pine-800 hover:bg-pine-800 hover:text-white',
+    'border border-pine-800/25 text-pine-900 hover:border-pine-800 hover:bg-pine-800 hover:text-white hover:-translate-y-0.5',
   ghost: 'text-pine-900 hover:bg-pine-800/5',
   // On dark backgrounds (hero, footer).
-  glass: 'glass text-white hover:bg-white/20',
+  glass: 'glass text-white hover:bg-white/20 hover:-translate-y-0.5',
 }
 
 const sizes = {
@@ -32,6 +33,9 @@ const sizes = {
   md: 'text-sm px-5 py-2.5',
   lg: 'text-base px-7 py-3.5',
 }
+
+// Consistent icon sizing across every button regardless of caller.
+const iconSize = '[&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0'
 
 export default function Button({
   variant = 'primary',
@@ -42,7 +46,7 @@ export default function Button({
   children,
   ...props
 }) {
-  const classes = cn(base, variants[variant], sizes[size], className)
+  const classes = cn(base, iconSize, variants[variant], sizes[size], className)
 
   if (to) {
     return (

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Section, SectionHeading } from '@/components/ui'
 import { activities } from '@/data/activities'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // Icon tiles for the ten headline activities. Compact, tappable, and reveals
 // with a stagger. Hover lifts the tile and warms the icon to saffron.
@@ -18,10 +18,10 @@ export default function PopularActivities() {
       <motion.ul
         variants={stagger}
         {...revealOnScroll}
-        className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"
+        className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5"
       >
         {activities.map(({ id, label, icon: Icon }) => (
-          <motion.li key={id} variants={fadeUp}>
+          <motion.li key={id} variants={fadeScale}>
             <button
               type="button"
               className="group flex w-full flex-col items-center gap-3 rounded-3xl border border-line bg-surface p-6 text-center shadow-soft transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-saffron-300 hover:shadow-lift"

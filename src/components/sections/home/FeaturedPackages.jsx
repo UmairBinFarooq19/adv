@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Clock, MapPin } from 'lucide-react'
 import { Section, SectionHeading, Card, Button, StarRating } from '@/components/ui'
 import { featuredPackages } from '@/data/packages'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // Premium package cards: image, badge, location, title, rating, description,
 // price + Book Now. The grid reveals with a scroll-triggered stagger.
@@ -24,10 +24,10 @@ export default function FeaturedPackages() {
       <motion.ul
         variants={stagger}
         {...revealOnScroll}
-        className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
       >
         {featuredPackages.map((pkg) => (
-          <motion.li key={pkg.id} variants={fadeUp}>
+          <motion.li key={pkg.id} variants={fadeScale}>
             <Card className="flex h-full flex-col">
               <Card.Image src={pkg.image} alt={pkg.title} badge={pkg.badge} />
               <Card.Body className="flex flex-1 flex-col">

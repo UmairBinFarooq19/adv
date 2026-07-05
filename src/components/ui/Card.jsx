@@ -19,9 +19,9 @@ function Card({ className, children, interactive = true, ...props }) {
   return (
     <div
       className={cn(
-        'group relative overflow-hidden rounded-3xl bg-surface shadow-soft',
+        'group relative overflow-hidden rounded-3xl bg-surface shadow-soft ring-1 ring-line/80',
         interactive &&
-          'transition-all duration-500 ease-premium hover:shadow-lift hover:-translate-y-1',
+          'transition-all duration-500 ease-premium hover:shadow-lift hover:-translate-y-1.5 hover:ring-line',
         className,
       )}
       {...props}
@@ -42,10 +42,8 @@ function CardImage({ src, alt = '', badge, ratio = 'aspect-[4/3]', className }) 
           className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
         />
       ) : (
-        // Graceful placeholder until real photography is dropped in.
-        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-glacier-100 to-pine-100 text-pine-400">
-          <span className="text-sm">Image</span>
-        </div>
+        // Graceful branded placeholder until real photography is dropped in.
+        <div className="h-full w-full bg-gradient-to-br from-glacier-100 via-glacier-50 to-pine-100" />
       )}
       {badge && (
         <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-pine-800 shadow-soft backdrop-blur">

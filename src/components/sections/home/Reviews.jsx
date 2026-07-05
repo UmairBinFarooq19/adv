@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Quote } from 'lucide-react'
 import { Section, SectionHeading, StarRating } from '@/components/ui'
 import { reviews } from '@/data/reviews'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // Testimonial cards. Avatars are generated from initials on a brand gradient,
 // so the section needs no photo assets and never shows a broken image.
@@ -23,12 +23,12 @@ export default function Reviews() {
       <motion.ul
         variants={stagger}
         {...revealOnScroll}
-        className="mt-12 grid gap-6 md:grid-cols-3"
+        className="mt-12 grid gap-6 md:grid-cols-3 lg:gap-8"
       >
         {reviews.map((r) => (
           <motion.li
             key={r.id}
-            variants={fadeUp}
+            variants={fadeScale}
             className="flex h-full flex-col rounded-3xl border border-line bg-background p-7 shadow-soft"
           >
             <Quote className="h-8 w-8 text-saffron-400" />

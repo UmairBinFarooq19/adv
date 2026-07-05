@@ -70,6 +70,7 @@ export default function Navbar({ transparentOnTop = false }) {
               className="grid h-10 w-10 place-items-center rounded-xl text-white lg:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
+              aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
             >
               {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -83,6 +84,7 @@ export default function Navbar({ transparentOnTop = false }) {
         {open && (
           <motion.nav
             key="mobile-menu"
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

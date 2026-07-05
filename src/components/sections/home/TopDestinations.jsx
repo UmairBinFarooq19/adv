@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, MapPin } from 'lucide-react'
 import { Section, SectionHeading } from '@/components/ui'
 import { destinations } from '@/data/destinations'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // Large destination cards with image zoom on hover and a gradient overlay that
 // deepens to reveal the blurb. The first card spans two columns on desktop for
@@ -21,12 +21,12 @@ export default function TopDestinations() {
       <motion.ul
         variants={stagger}
         {...revealOnScroll}
-        className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
       >
         {destinations.map((d, i) => (
           <motion.li
             key={d.id}
-            variants={fadeUp}
+            variants={fadeScale}
             className={i === 0 ? 'sm:col-span-2 lg:col-span-2' : ''}
           >
             <a

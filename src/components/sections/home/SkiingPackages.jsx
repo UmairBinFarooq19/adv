@@ -6,7 +6,7 @@ import Eyebrow from '@/components/ui/Eyebrow'
 import { cn } from '@/lib/cn'
 import { asset } from '@/lib/asset'
 import { skiingPrograms } from '@/data/skiing'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeUp, fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // The homepage's hero product. A full-bleed banner sets the scene, then a grid
 // of program cards (with two "featured" cards highlighted in saffron) covers
@@ -49,10 +49,10 @@ export default function SkiingPackages() {
         <motion.ul
           variants={stagger}
           {...revealOnScroll}
-          className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {skiingPrograms.map(({ id, icon: Icon, level, title, desc, price, unit, featured }) => (
-            <motion.li key={id} variants={fadeUp}>
+            <motion.li key={id} variants={fadeScale}>
               <div
                 className={cn(
                   'group flex h-full flex-col rounded-3xl border p-6 transition-all duration-500 ease-premium hover:-translate-y-1',

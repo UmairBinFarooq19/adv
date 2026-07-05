@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Clock } from 'lucide-react'
 import { Section, SectionHeading, Card, Button } from '@/components/ui'
 import { blogPosts } from '@/data/blogs'
-import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
+import { fadeScale, stagger, revealOnScroll } from '@/lib/motion'
 
 // Three featured journal posts, reusing the shared Card exactly like the
 // packages grid — proof the primitive scales across content types.
@@ -24,10 +24,10 @@ export default function TravelBlogs() {
       <motion.ul
         variants={stagger}
         {...revealOnScroll}
-        className="mt-12 grid gap-6 md:grid-cols-3"
+        className="mt-12 grid gap-6 md:grid-cols-3 lg:gap-8"
       >
         {blogPosts.map((post) => (
-          <motion.li key={post.id} variants={fadeUp}>
+          <motion.li key={post.id} variants={fadeScale}>
             <Card className="h-full">
               <Card.Image src={post.image} alt={post.title} ratio="aspect-[16/10]" />
               <Card.Body>

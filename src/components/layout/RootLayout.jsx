@@ -16,11 +16,17 @@ export default function RootLayout() {
 
   return (
     <div className="flex min-h-dvh flex-col">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-pine-950 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lift"
+      >
+        Skip to content
+      </a>
       <ScrollToTop />
       <TopBar />
       <Navbar transparentOnTop={hasHero} />
       {/* main is the landmark for skip-links and screen readers */}
-      <main id="main" className={cn('flex-1', hasHero && '-mt-[70px] lg:-mt-[78px]')}>
+      <main id="main" tabIndex={-1} className={cn('flex-1 outline-none', hasHero && '-mt-[70px] lg:-mt-[78px]')}>
         <Outlet />
       </main>
       <Footer />

@@ -85,7 +85,7 @@ export default function QuickInquiry() {
 
             <Button type="submit" variant="primary" size="lg" className="h-[46px] w-full lg:w-auto">
               <Search className="h-4 w-4" />
-              <span className="lg:sr-only xl:not-sr-only">Send inquiry</span>
+              Send inquiry
             </Button>
           </form>
         </motion.div>
