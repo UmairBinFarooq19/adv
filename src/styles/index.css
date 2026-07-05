@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Semantic color tokens ──────────────────────────────────────────────────
+   Named by role, not hue. Components reference these (bg-surface, text-body…)
+   so a future dark mode or rebrand is a variable swap, not a component rewrite. */
+@layer base {
+  :root {
+    --color-background: 245 248 246; /* snow  */
+    --color-surface: 255 255 255;    /* cards */
+    --color-body: 12 26 21;          /* ink   */
+    --color-muted: 91 110 102;       /* muted text */
+    --color-line: 223 231 227;       /* hairline borders */
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-body font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv01';
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-pine-900;
+    text-wrap: balance;
+  }
+
+  /* Keyboard focus is always visible — accessibility quality floor. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-saffron-400 ring-offset-2 ring-offset-background;
+  }
+
+  /* Respect users who prefer less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Reusable component utilities ──────────────────────────────────────────── */
+@layer components {
+  /* Frosted-glass surface — used sparingly (nav pill, hero chips). */
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/15 shadow-glass;
+  }
+
+  /* Tracked-out label that sits above section headings. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-eyebrow font-semibold uppercase text-saffron-600;
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AdventuresKashmir</title>
+    <!--
+      GitHub Pages has no server-side routing, so a direct hit on /packages
+      returns this 404 page. We rewrite the URL into a query string and bounce to
+      the app root; the restore script in index.html replays it into the History
+      API so React Router renders the right page. Deep links + refresh then work.
+
+      pathSegmentsToKeep = 1  -> PROJECT site: https://user.github.io/<repo>/
+      pathSegmentsToKeep = 0  -> USER/ORG root site: https://user.github.io/
+      (This template targets a project site. Change to 0 for a root site.)
+    -->
+    <script>
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
