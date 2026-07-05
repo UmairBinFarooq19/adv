@@ -1,4 +1,5 @@
 import Hero from '@/components/sections/home/Hero'
+import QuickInquiry from '@/components/sections/home/QuickInquiry'
 import FeaturedPackages from '@/components/sections/home/FeaturedPackages'
 import SkiingPackages from '@/components/sections/home/SkiingPackages'
 import PopularActivities from '@/components/sections/home/PopularActivities'
@@ -10,12 +11,12 @@ import TravelBlogs from '@/components/sections/home/TravelBlogs'
 import ContactCTA from '@/components/sections/home/ContactCTA'
 
 // The home page is pure composition — it declares WHAT sections appear and in
-// WHAT order, and nothing else. All layout/logic lives inside each section, so
-// reordering the page is just reordering these lines.
+// WHAT order. All layout/logic lives inside each section.
 export default function Home() {
   return (
     <>
       <Hero />
+      <QuickInquiry />
       <FeaturedPackages />
       <SkiingPackages />
       <PopularActivities />

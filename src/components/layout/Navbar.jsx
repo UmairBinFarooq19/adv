@@ -26,7 +26,7 @@ export default function Navbar({ transparentOnTop = false }) {
           'transition-colors duration-300 ease-premium',
           solid
             ? 'bg-pine-950/95 shadow-soft backdrop-blur supports-[backdrop-filter]:bg-pine-950/80'
-            : 'bg-transparent',
+            : 'bg-gradient-to-b from-pine-950/80 via-pine-950/40 to-transparent',
         )}
       >
         <Container className="flex h-16 items-center justify-between lg:h-[72px]">
