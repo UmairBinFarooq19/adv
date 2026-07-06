@@ -4,6 +4,9 @@ import TopBar from './TopBar'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
+import FloatingActions from './FloatingActions'
+import CompareBar from '@/components/packages/CompareBar'
+import InquiryModal from '@/components/inquiry/InquiryModal'
 
 // App shell shared by every page: top bar → nav → routed page → footer.
 // On the home page the hero is full-bleed: `main` is pulled up under the
@@ -30,6 +33,11 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <Footer />
+
+      {/* Global, site-wide hosts */}
+      <FloatingActions />
+      <CompareBar />
+      <InquiryModal />
     </div>
   )
 }

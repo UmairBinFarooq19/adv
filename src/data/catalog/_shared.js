@@ -44,9 +44,18 @@ export const cancellation =
 
 // Fills defaults, then lets the entry override anything.
 export function pkg(data) {
+  // A concise hotel band for the comparison table, derived from style tags
+  // (the descriptive `accommodation` string stays as-is). Override by passing
+  // `hotelCategory` explicitly.
+  const hotelCategory = data.tags?.includes('luxury')
+    ? 'Luxury (4–5★)'
+    : data.tags?.includes('budget')
+      ? 'Comfort (2–3★)'
+      : 'Premium (3–4★)'
   return {
     rating: 4.8,
     reviews: 40,
+    hotelCategory,
     accommodation: 'Handpicked 3–4★ hotels, resorts & Dal Lake houseboats',
     meals: 'Daily breakfast and dinner (half-board)',
     transportation: 'Private vehicle with a professional local driver',

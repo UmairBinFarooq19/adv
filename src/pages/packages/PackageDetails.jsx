@@ -9,6 +9,7 @@ import Container from '@/components/ui/Container'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import ContourDivider from '@/components/ui/ContourDivider'
 import Button from '@/components/ui/Button'
+import Media from '@/components/ui/Media'
 import FAQAccordion from '@/components/ui/FAQAccordion'
 import { Section, SectionHeading } from '@/components/ui'
 import PackageTimeline from '@/components/packages/PackageTimeline'
@@ -18,6 +19,7 @@ import BookingSidebar from '@/components/packages/BookingSidebar'
 import PackageGrid from '@/components/packages/PackageGrid'
 import { getPackage, getRelated, getCategory, formatPrice } from '@/data/catalog'
 import { useSeo } from '@/lib/seo'
+import { useInquiry } from '@/store/InquiryContext'
 import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
 
 const NotFound = lazy(() => import('@/pages/NotFound'))
@@ -35,6 +37,7 @@ function Block({ id, title, children, className = '' }) {
 export default function PackageDetails() {
   const { slug } = useParams()
   const pkg = getPackage(slug)
+  const { openInquiry } = useInquiry()
 
   useSeo(
     pkg
@@ -82,7 +85,7 @@ export default function PackageDetails() {
     <>
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-pine-950 text-white">
-        <img src={pkg.image} alt="" aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        <Media src={pkg.image} alt="" eager className="absolute inset-0 -z-10 h-full w-full" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-pine-950 via-pine-950/85 to-pine-900/70" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 text-saffron-400/20"><ContourDivider className="h-32" opacity={0.6} /></div>
         <Container className="relative py-14 sm:py-20 lg:py-24">
@@ -241,7 +244,7 @@ export default function PackageDetails() {
             <span className="block text-xs text-muted">from</span>
             <span className="font-display text-xl font-semibold text-pine-900">{formatPrice(pkg.priceFrom)}</span>
           </span>
-          <Button to="/contact" variant="primary" size="md" className="flex-1 max-w-[60%]">Book now</Button>
+          <Button variant="primary" size="md" className="flex-1 max-w-[60%]" onClick={() => openInquiry(pkg)}>Book now</Button>
         </div>
       </div>
     </>

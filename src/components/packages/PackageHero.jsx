@@ -3,6 +3,7 @@ import Container from '@/components/ui/Container'
 import Eyebrow from '@/components/ui/Eyebrow'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import ContourDivider from '@/components/ui/ContourDivider'
+import Media from '@/components/ui/Media'
 import { fadeUp, stagger } from '@/lib/motion'
 
 // Reusable banner for the Packages landing and every collection page. Full-bleed
@@ -12,7 +13,7 @@ export default function PackageHero({ image, eyebrow, title, intro, breadcrumbs,
   return (
     <section className="relative isolate overflow-hidden bg-pine-950 text-white">
       {image && (
-        <img src={image} alt="" aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        <Media src={image} alt="" eager className="absolute inset-0 -z-10 h-full w-full" />
       )}
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-pine-950 via-pine-950/85 to-pine-900/70" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 text-saffron-400/20">

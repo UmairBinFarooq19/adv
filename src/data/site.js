@@ -74,7 +74,7 @@ export const footerColumns = [
     links: [
       { label: 'About Us', to: '/about' },
       { label: 'Contact', to: '/contact' },
-      { label: 'FAQs', to: '/contact#faqs' },
+      { label: 'FAQs', to: '/faq' },
       { label: 'Policies', to: '/contact#policies' },
     ],
   },

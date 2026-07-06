@@ -17,6 +17,15 @@ export default function PackageFilter({
   const [openMobile, setOpenMobile] = useState(false)
   const activeCount = Object.values(selected).reduce((n, arr) => n + (arr?.length ?? 0), 0)
 
+  // Flatten the current selection into removable chips (with human labels).
+  const activeChips = filterGroups.flatMap((group) =>
+    (selected[group.id] ?? []).map((value) => ({
+      groupId: group.id,
+      value,
+      label: group.options.find((o) => o.value === value)?.label ?? value,
+    })),
+  )
+
   return (
     <div className="rounded-3xl border border-line bg-surface p-5 shadow-soft sm:p-6">
       {/* Search + mobile toggle */}
@@ -42,6 +51,25 @@ export default function PackageFilter({
           Filters{activeCount > 0 && <span className="ml-0.5 rounded-full bg-saffron-400 px-1.5 text-xs text-pine-950">{activeCount}</span>}
         </button>
       </div>
+
+      {/* Active filters */}
+      {activeChips.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted">Active:</span>
+          {activeChips.map((chip) => (
+            <button
+              key={`${chip.groupId}:${chip.value}`}
+              type="button"
+              onClick={() => onToggle(chip.groupId, chip.value)}
+              className="inline-flex items-center gap-1 rounded-full bg-pine-800 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-pine-700"
+              aria-label={`Remove filter ${chip.label}`}
+            >
+              {chip.label}
+              <X className="h-3 w-3" />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Facets */}
       <div className={cn('mt-5 space-y-5', openMobile ? 'block' : 'hidden lg:block')}>

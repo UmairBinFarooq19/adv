@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import RootLayout from '@/components/layout/RootLayout'
 import Home from '@/pages/Home'
+import { PageSkeleton } from '@/components/ui/Skeleton'
 
 // Home is eager (it's the landing page — no reason to split it). Every other
 // page is lazy-loaded so a first visit only downloads the code it needs, which
@@ -16,15 +17,13 @@ const Destinations = lazy(() => import('@/pages/Destinations'))
 const Gallery = lazy(() => import('@/pages/Gallery'))
 const Blogs = lazy(() => import('@/pages/Blogs'))
 const Contact = lazy(() => import('@/pages/Contact'))
+const Favorites = lazy(() => import('@/pages/Favorites'))
+const Faq = lazy(() => import('@/pages/Faq'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
-// Minimal fallback shown while a lazy page chunk loads.
+// Skeleton fallback shown while a lazy page chunk loads (perceived performance).
 function PageFallback() {
-  return (
-    <div className="grid min-h-[60vh] place-items-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-pine-200 border-t-saffron-400" />
-    </div>
-  )
+  return <PageSkeleton />
 }
 
 const withSuspense = (Component) => (
@@ -55,6 +54,8 @@ export const router = createBrowserRouter(
         { path: 'gallery', element: withSuspense(Gallery) },
         { path: 'blogs', element: withSuspense(Blogs) },
         { path: 'contact', element: withSuspense(Contact) },
+        { path: 'favorites', element: withSuspense(Favorites) },
+        { path: 'faq', element: withSuspense(Faq) },
         { path: '*', element: withSuspense(NotFound) },
       ],
     },

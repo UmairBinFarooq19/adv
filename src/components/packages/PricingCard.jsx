@@ -2,10 +2,12 @@ import { Check } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import { cn } from '@/lib/cn'
 import { formatPrice } from '@/data/catalog'
+import { useInquiry } from '@/store/InquiryContext'
 
 // Reusable pricing block: headline price + a short inclusions list + CTA.
 // Used in the details "Pricing" section; BookingSidebar reuses the price header.
 export default function PricingCard({ pkg, className }) {
+  const { openInquiry } = useInquiry()
   return (
     <div className={cn('rounded-3xl border border-line bg-surface p-7 shadow-soft', className)}>
       <div className="flex items-end justify-between gap-4 border-b border-line pb-5">
@@ -35,7 +37,7 @@ export default function PricingCard({ pkg, className }) {
         dates for an exact, all-in quote — usually within a few hours.
       </p>
 
-      <Button to="/contact" variant="primary" size="lg" className="mt-6 w-full">
+      <Button variant="primary" size="lg" className="mt-6 w-full" onClick={() => openInquiry(pkg)}>
         Request exact quote
       </Button>
     </div>

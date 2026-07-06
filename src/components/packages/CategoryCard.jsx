@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
+import Media from '@/components/ui/Media'
 
 // Landing-page category tile: image with zoom, icon, title, blurb. Links to the
 // category's collection page (or a custom `to`, e.g. the builder).
@@ -11,12 +12,11 @@ export default function CategoryCard({ category }) {
       to={to}
       className="group relative flex min-h-[16rem] flex-col justify-end overflow-hidden rounded-3xl p-6 text-white shadow-soft ring-1 ring-line/40 transition-all duration-500 ease-premium hover:-translate-y-1.5 hover:shadow-lift"
     >
-      <img
+      <Media
         src={category.image}
         alt=""
-        aria-hidden="true"
-        loading="lazy"
-        className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[900ms] ease-premium group-hover:scale-110"
+        className="absolute inset-0 -z-10 h-full w-full"
+        imgClassName="transition-transform duration-[900ms] ease-premium group-hover:scale-110"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-pine-950/90 via-pine-950/40 to-pine-950/20" />
 

@@ -1,23 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X, Mountain } from 'lucide-react'
+import { Menu, X, Mountain, Search, Heart } from 'lucide-react'
 import { mainNav } from '@/data/site'
 import { useScrolled } from '@/hooks/useScrolled'
 import { cn } from '@/lib/cn'
 import Button from '@/components/ui/Button'
 import Container from '@/components/ui/Container'
+import SearchModal from '@/components/search/SearchModal'
+import { useFavorites } from '@/store/FavoritesContext'
+import { useInquiry } from '@/store/InquiryContext'
 
 // The navbar is transparent while sitting over a hero, then turns solid once
-// the user scrolls. On any page without a dark hero (About, Contact, …) we start
-// solid immediately so text stays legible. `transparentOnTop` is passed by the
-// layout based on the current route.
+// the user scrolls. Search + favorites live in the right cluster (icon buttons)
+// so they're reachable everywhere without disturbing the primary nav. Press "/"
+// anywhere to open search.
 export default function Navbar({ transparentOnTop = false }) {
   const scrolled = useScrolled(24)
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const { count } = useFavorites()
+  const { openInquiry } = useInquiry()
 
-  // Solid when scrolled, when a page has no hero, or when the mobile menu is open.
   const solid = scrolled || !transparentOnTop || open
+
+  // "/" opens search (unless the user is typing in a field).
+  useEffect(() => {
+    const onKey = (e) => {
+      const t = e.target
+      const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)
+      if (e.key === '/' && !typing && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
+  const iconBtn = 'relative grid h-10 w-10 place-items-center rounded-xl text-white/90 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-400'
 
   return (
     <header className="sticky top-0 z-50">
@@ -41,7 +62,7 @@ export default function Navbar({ transparentOnTop = false }) {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Primary">
             {mainNav.map(({ label, to }) => (
               <NavLink
                 key={to}
@@ -60,8 +81,17 @@ export default function Navbar({ transparentOnTop = false }) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <Button to="/contact" variant="primary" size="sm" className="hidden sm:inline-flex">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button type="button" onClick={() => setSearchOpen(true)} aria-label="Search (press /)" className={iconBtn}>
+              <Search className="h-5 w-5" />
+            </button>
+            <Link to="/favorites" aria-label={`Saved packages${count ? ` (${count})` : ''}`} className={cn(iconBtn, 'hidden lg:grid')}>
+              <Heart className="h-5 w-5" />
+              {count > 0 && (
+                <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-saffron-400 px-1 text-[10px] font-bold text-pine-950">{count}</span>
+              )}
+            </Link>
+            <Button variant="primary" size="sm" className="hidden sm:inline-flex" onClick={() => openInquiry()}>
               Book Now
             </Button>
             {/* Mobile menu toggle */}
@@ -109,13 +139,19 @@ export default function Navbar({ transparentOnTop = false }) {
                   {label}
                 </NavLink>
               ))}
-              <Button to="/contact" variant="primary" size="lg" className="mt-3" onClick={() => setOpen(false)}>
+              <Link to="/favorites" onClick={() => setOpen(false)} className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium text-white/80 hover:bg-white/5 hover:text-white">
+                <span className="flex items-center gap-2"><Heart className="h-5 w-5" /> Saved packages</span>
+                {count > 0 && <span className="rounded-full bg-saffron-400 px-2 text-sm font-bold text-pine-950">{count}</span>}
+              </Link>
+              <Button variant="primary" size="lg" className="mt-3" onClick={() => { setOpen(false); openInquiry() }}>
                 Book Now
               </Button>
             </Container>
           </motion.nav>
         )}
       </AnimatePresence>
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }
