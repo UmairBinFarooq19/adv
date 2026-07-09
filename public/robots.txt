@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Per-visitor state - nothing stable to index
+Disallow: /favorites
+
+# Deep links into the gallery lightbox duplicate /gallery
+Disallow: /*?photo=
+
 Sitemap: https://adventureskashmir.example/sitemap.xml
