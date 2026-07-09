@@ -13,7 +13,11 @@ export default function Favorites() {
   const { favorites, clearFavorites, count } = useFavorites()
   const packages = favorites.map(getPackage).filter(Boolean)
 
-  useSeo({ title: 'Your saved packages', description: 'Packages you’ve saved to revisit and compare.' })
+  useSeo({ title: 'Your saved packages', description: 'Packages you’ve saved to revisit and compare.',
+    // Per-visitor localStorage state: nothing stable for a crawler to index,
+    // but links out to real packages, so 'follow' stays on.
+    noindex: true,
+  })
 
   return (
     <>

@@ -18,7 +18,7 @@ import PricingCard from '@/components/packages/PricingCard'
 import BookingSidebar from '@/components/packages/BookingSidebar'
 import PackageGrid from '@/components/packages/PackageGrid'
 import { getPackage, getRelated, getCategory, formatPrice } from '@/data/catalog'
-import { useSeo } from '@/lib/seo'
+import { useSeo, breadcrumbLd } from '@/lib/seo'
 import { useInquiry } from '@/store/InquiryContext'
 import { fadeUp, stagger, revealOnScroll } from '@/lib/motion'
 
@@ -48,13 +48,23 @@ export default function PackageDetails() {
           type: 'article',
           jsonLd: {
             '@context': 'https://schema.org',
-            '@type': 'TouristTrip',
-            name: pkg.title,
-            description: pkg.summary,
-            image: pkg.image,
-            touristType: pkg.tags,
-            offers: { '@type': 'Offer', price: pkg.priceFrom, priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
-            aggregateRating: { '@type': 'AggregateRating', ratingValue: pkg.rating, reviewCount: pkg.reviews },
+            '@graph': [
+              {
+                '@type': 'TouristTrip',
+                name: pkg.title,
+                description: pkg.summary,
+                image: pkg.image,
+                touristType: pkg.tags,
+                offers: { '@type': 'Offer', price: pkg.priceFrom, priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
+                aggregateRating: { '@type': 'AggregateRating', ratingValue: pkg.rating, reviewCount: pkg.reviews },
+              },
+              breadcrumbLd([
+                { name: 'Home', path: '/' },
+                { name: 'Packages', path: '/packages' },
+                { name: getCategory(pkg.category)?.title ?? pkg.category, path: `/packages/${pkg.category}` },
+                { name: pkg.title },
+              ]),
+            ],
           },
         }
       : { title: 'Not found' },

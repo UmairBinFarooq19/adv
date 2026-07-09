@@ -13,9 +13,12 @@ const PackageCollection = lazy(() => import('@/pages/packages/PackageCollection'
 const CustomPackages = lazy(() => import('@/pages/packages/CustomPackages'))
 const PackageDetails = lazy(() => import('@/pages/packages/PackageDetails'))
 const Adventures = lazy(() => import('@/pages/Adventures'))
+const AdventureDetail = lazy(() => import('@/pages/AdventureDetail'))
 const Destinations = lazy(() => import('@/pages/Destinations'))
+const DestinationDetail = lazy(() => import('@/pages/DestinationDetail'))
 const Gallery = lazy(() => import('@/pages/Gallery'))
 const Blogs = lazy(() => import('@/pages/Blogs'))
+const BlogPost = lazy(() => import('@/pages/BlogPost'))
 const Contact = lazy(() => import('@/pages/Contact'))
 const Favorites = lazy(() => import('@/pages/Favorites'))
 const Faq = lazy(() => import('@/pages/Faq'))
@@ -50,9 +53,12 @@ export const router = createBrowserRouter(
         { path: 'packages/:category', element: withSuspense(PackageCollection) },
         { path: 'packages/:category/:slug', element: withSuspense(PackageDetails) },
         { path: 'adventures', element: withSuspense(Adventures) },
+        { path: 'adventures/:slug', element: withSuspense(AdventureDetail) },
         { path: 'destinations', element: withSuspense(Destinations) },
+        { path: 'destinations/:slug', element: withSuspense(DestinationDetail) },
         { path: 'gallery', element: withSuspense(Gallery) },
         { path: 'blogs', element: withSuspense(Blogs) },
+        { path: 'blogs/:slug', element: withSuspense(BlogPost) },
         { path: 'contact', element: withSuspense(Contact) },
         { path: 'favorites', element: withSuspense(Favorites) },
         { path: 'faq', element: withSuspense(Faq) },
