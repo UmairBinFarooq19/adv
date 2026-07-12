@@ -18,6 +18,7 @@ const Destinations = lazy(() => import('@/pages/Destinations'))
 const DestinationDetail = lazy(() => import('@/pages/DestinationDetail'))
 const Gallery = lazy(() => import('@/pages/Gallery'))
 const Blogs = lazy(() => import('@/pages/Blogs'))
+const Reviews = lazy(() => import('@/pages/Reviews'))
 const BlogPost = lazy(() => import('@/pages/BlogPost'))
 const Contact = lazy(() => import('@/pages/Contact'))
 const Favorites = lazy(() => import('@/pages/Favorites'))
@@ -59,6 +60,7 @@ export const router = createBrowserRouter(
         { path: 'gallery', element: withSuspense(Gallery) },
         { path: 'blogs', element: withSuspense(Blogs) },
         { path: 'blogs/:slug', element: withSuspense(BlogPost) },
+        { path: 'reviews', element: withSuspense(Reviews) },
         { path: 'contact', element: withSuspense(Contact) },
         { path: 'favorites', element: withSuspense(Favorites) },
         { path: 'faq', element: withSuspense(Faq) },
