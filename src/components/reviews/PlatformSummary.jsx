@@ -22,12 +22,18 @@ export default function PlatformSummary({ platform, ctaLabel, className }) {
         <h3 className="font-display text-lg font-semibold text-pine-900">{platform.name}</h3>
       </div>
 
-      <p className="mt-5 flex items-baseline gap-2">
-        <span className="font-display text-4xl font-semibold text-pine-900">{platform.rating.toFixed(1)}</span>
-        <span className="text-sm text-muted">/ 5</span>
-      </p>
-      <StarRating value={platform.rating} className="mt-2" />
-      <p className="mt-2 text-sm text-muted">{platform.count} reviews</p>
+      {platform.rating != null ? (
+        <>
+          <p className="mt-5 flex items-baseline gap-2">
+            <span className="font-display text-4xl font-semibold text-pine-900">{platform.rating.toFixed(1)}</span>
+            <span className="text-sm text-muted">/ 5</span>
+          </p>
+          <StarRating value={platform.rating} className="mt-2" />
+          <p className="mt-2 text-sm text-muted">{platform.count} reviews</p>
+        </>
+      ) : (
+        <p className="mt-5 text-sm font-medium text-muted">Reviews coming soon</p>
+      )}
       <p className="mt-4 text-sm leading-relaxed text-muted">{platform.blurb}</p>
 
       <div className="mt-auto pt-6">

@@ -21,6 +21,7 @@ export default function RatingSummary({ rating, total, distribution = [], verifi
       </motion.div>
 
       <motion.dl variants={fadeUp} className="space-y-2.5">
+        <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted">Featured reviews breakdown</p>
         {distribution.map(({ stars, count, pct }) => (
           <div key={stars} className="flex items-center gap-3">
             <dt className="w-16 shrink-0 text-sm text-muted">{stars} star{stars === 1 ? '' : 's'}</dt>
