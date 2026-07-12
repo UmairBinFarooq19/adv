@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Premium Kashmir adventure & luxury travel website — AdventuresKashmir",
+  "description": "Premium Kashmir adventure & luxury travel website \u2014 AdventuresKashmir",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "gen:seo": "node scripts/gen_sitemap.mjs",
+    "prebuild": "node scripts/gen_sitemap.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",

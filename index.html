@@ -47,6 +47,40 @@
         }
       })(window.location);
     </script>
+    <!-- Site-level structured data (Organization + WebSite), present in the
+         initial HTML so crawlers see it without executing the app. Per-page
+         JSON-LD (Article, Breadcrumb, FAQ, TouristDestination, ImageGallery) is
+         injected by the useSeo hook into a separate #ld-json script.
+         Replace the example origin below with the real deployed domain — the
+         same value you pass as VITE_SITE_URL to the sitemap generator. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "TravelAgency",
+            "@id": "https://adventureskashmir.example/#organization",
+            "name": "AdventuresKashmir",
+            "url": "https://adventureskashmir.example/",
+            "logo": "https://adventureskashmir.example/favicon.svg",
+            "image": "https://adventureskashmir.example/og-image.jpg",
+            "description": "Premium guided ski, trekking and luxury adventure journeys across Kashmir and Ladakh.",
+            "areaServed": "Kashmir, Ladakh, India",
+            "email": "hello@adventureskashmir.com",
+            "telephone": "+91 194 000 0000",
+            "address": { "@type": "PostalAddress", "streetAddress": "Boulevard Road, Dal Lake", "addressLocality": "Srinagar", "addressRegion": "J&K", "postalCode": "190001", "addressCountry": "IN" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://adventureskashmir.example/#website",
+            "name": "AdventuresKashmir",
+            "url": "https://adventureskashmir.example/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://adventureskashmir.example/#organization" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
