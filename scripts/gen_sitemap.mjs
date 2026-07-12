@@ -72,6 +72,7 @@ const routes = [
   entry('destinations', '0.9', 'monthly'),
   entry('gallery', '0.7', 'monthly'),
   entry('blogs', '0.8', 'weekly'),
+  entry('reviews', '0.7', 'monthly'),
 ]
 
 // Package category collections. The catalog's own category list is the source of
