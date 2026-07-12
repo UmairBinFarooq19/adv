@@ -15,6 +15,7 @@ import ReviewGrid from '@/components/reviews/ReviewGrid'
 import {
   reviews, platforms, activeCategories, categoryCounts, countries,
   overallRating, totalReviews, ratingDistribution, verifiedCount,
+  headlineRating, headlineCount,
   photoReviews, videoTestimonials, videoKinds, aggregateSchemaEnabled,
 } from '@/data/reviewsPage'
 import { useSeo, breadcrumbLd, absoluteUrl } from '@/lib/seo'
@@ -30,23 +31,23 @@ export default function Reviews() {
 
   useSeo({
     title: 'Reviews',
-    description: `Read verified guest reviews of AdventuresKashmir — ${overallRating.toFixed(1)}/5 across ${totalReviews} trips in Kashmir and Ladakh, plus our Google and TripAdvisor summaries.`,
+    description: `Read verified guest reviews of AdventuresKashmir — rated ${(headlineRating ?? overallRating).toFixed(1)}/5 from ${headlineCount ?? totalReviews} reviews on TripAdvisor, ranked #1 in its Gulmarg category.`,
     image: asset('images/scenes/s-dawn-1.svg'),
     jsonLd: {
       '@context': 'https://schema.org',
       '@graph': [
         breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Reviews' }]),
-        // AggregateRating is emitted ONLY when the data is marked real, to avoid
-        // publishing invented rating schema (a Google policy / consumer-law risk).
-        ...(aggregateSchemaEnabled
+        // AggregateRating is emitted ONLY when the data is marked real. It uses
+        // the primary platform's true figures (5.0 / 223), not the on-page sample.
+        ...(aggregateSchemaEnabled && headlineRating != null
           ? [{
               '@type': 'Organization',
               name: 'AdventuresKashmir',
               url: absoluteUrl('/'),
               aggregateRating: {
                 '@type': 'AggregateRating',
-                ratingValue: overallRating,
-                reviewCount: totalReviews,
+                ratingValue: headlineRating,
+                reviewCount: headlineCount,
                 bestRating: 5,
                 worstRating: 1,
               },
@@ -91,9 +92,9 @@ export default function Reviews() {
         breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Reviews' }]}
         eyebrow="Guest reviews"
         title="What our travellers say"
-        subtitle="Every review below is from a guest we guided. No stock quotes, no bought stars — just honest accounts of trips across Kashmir and Ladakh."
+        subtitle="Every review here is from a real guest on our TripAdvisor profile, where we’re rated 5.0 out of 5 and ranked #1 in our Gulmarg category. Honest accounts, in their own words."
         image={asset('images/scenes/s-dawn-1.svg')}
-        rating={overallRating}
+        rating={headlineRating ?? overallRating}
         verifiedCount={verifiedCount}
       >
         <Button href="#reviews" variant="primary" size="lg">Read reviews <ArrowRight className="h-4 w-4" /></Button>
@@ -102,9 +103,9 @@ export default function Reviews() {
 
       {/* 2 + 3 + 4 — Overall rating & platform summaries */}
       <Section>
-        <SectionHeading align="center" eyebrow="The verdict" title="Rated by the people who travelled" lead="Our overall score is computed from every review on this page — never hand-set." />
+        <SectionHeading align="center" eyebrow="The verdict" title="Rated by the people who travelled" lead="Our headline score reflects our verified TripAdvisor profile; the breakdown below covers the reviews featured on this page." />
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-8">
-          <RatingSummary rating={overallRating} total={totalReviews} distribution={ratingDistribution} verifiedCount={verifiedCount} />
+          <RatingSummary rating={headlineRating ?? overallRating} total={headlineCount ?? totalReviews} distribution={ratingDistribution} verifiedCount={verifiedCount} />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
             {platforms.map((p) => (
               <PlatformSummary
